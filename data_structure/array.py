@@ -10,7 +10,7 @@ print(data)
 data = [[1,2,3], ['a', 'b', 'c'], [5,6,7]]
 print(data[0][2]) ## 3 출력
 
-## 연습 :: M 의 빈도수를 구하라
+## 연습 :: M, m 의 빈도수를 구하라
 dataset = ['Braund, Mr. Owen Harris',
 'Cumings, Mrs. John Bradley (Florence Briggs Thayer)',
 'Heikkinen, Miss. Laina',
@@ -42,9 +42,12 @@ dataset = ['Braund, Mr. Owen Harris',
 'Dwyer, Miss. Ellen "Nellie"',
 'Todoroff, Mr. Lalio']
 
+## range(10) : 0 부터 10-1 까지 반복
+
 cnt = 0
 for data in dataset:
     for index in range(len(data)):
         if (data[index] == 'M') or (data[index] == 'm') :
             cnt = cnt + 1 
 print(cnt)
+
