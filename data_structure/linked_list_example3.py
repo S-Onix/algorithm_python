@@ -58,7 +58,8 @@ class NodeMgmt :
             else:
                 node = node.prev
         return False
-        
+
+    # 중간에 넣는 코드
     def insert_before(self, data, before_data) :
         if self.head == None :
             self.head = Node(data)
