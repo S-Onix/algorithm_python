@@ -8,6 +8,11 @@
 # 파이썬에서는 클래스의 메소드 안에 첫번째 인자는 self 가 존재하며 이 self는 자바에서의 this와 역할이 동일하다.
 
 
+# 링크드리스트의 장점 : 배열과 비교해 봤을 때 데이터 공간을 미리 할당하지 않아도 됨
+# 링크드리스트의 단점 : 별도의 데이터 공간이 필요하므로 저장공간의 효율이 좋지 않다. (데이터, 포인터)
+#                     연결 정보를 찾는 시간이 필요하므로 접근 속도가 느리다 (Node를 건너서 찾아야하기 때문에 (인덱스로 찾는것이 아님))
+#                     중간 데이터 삭제시, 앞뒤 데이터 연결을 재구성해야하는 부가적인 작업이 필요하다.  
+
 class Node:
     def __init__(self, data, next=None) :
         self.data = data
@@ -34,3 +39,16 @@ def print_node():
     print(node.data)
 
 print_node()
+
+node3 = Node(1.5)
+node = head
+search = True
+while search:
+    if node.data == 1:
+        search = False
+    else :
+        node = node.next
+
+node_next = node.next
+node.next = node3
+node3.next = node_next
