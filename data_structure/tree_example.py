@@ -38,10 +38,24 @@ class NodeMgt :
                 else :
                     self.current_node.right = Node(value)
                     break
-        
-    
+    # 해당 노드의 존재여부에 대해서 알기 위한 메소드    
+    def search(self, value) :
+        self.current_node = self.head
+        while(self.current_node) :
+            if self.current_node.value == value :
+                return True
+            else :
+                # 왼쪽으로 탐색을 할지 오른쪽으로 탐색할지 결정 위한 분기 구문
+                if self.current_node.value > value : 
+                    self.current_node = self.current_node.left
+                else :
+                    self.current_node = self.current_node.right
+        return False
+
         
 
 head = Node(1)
 BST = NodeMgt(head)
 BST.insert(3)
+print(BST.search(3))
+print(BST.search(2))
