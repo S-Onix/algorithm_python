@@ -41,7 +41,7 @@ class NodeMgt :
     # 해당 노드의 존재여부에 대해서 알기 위한 메소드    
     def search(self, value) :
         self.current_node = self.head
-        while(self.current_node) :
+        while self.current_node :
             if self.current_node.value == value :
                 return True
             else :
@@ -51,6 +51,54 @@ class NodeMgt :
                 else :
                     self.current_node = self.current_node.right
         return False
+    # 노드의 존재유무를 찾아 삭제한다. >> 부모와 자식을 연결해주는 작업이 필요하다.
+    def delete(self, value) :
+        searched = False
+        self.current_node = self.head
+        self.parent_node = self.head
+
+        # 삭제할 노드가 있는지 검사하는 구문
+        while self.current_node :
+            if self.current_node.value == value :
+                searched = True
+                break
+            elif self.current_node.value > value : 
+                self.parent_node = self.current_node
+                self.current_node = self.current_node.left
+            else :
+                self.parent_node = self.current_node
+                self.current_node = self.current_node.right
+
+        # 삭제할 노드가 없다면 리턴
+        if searched == False :
+            return False
+        
+        # 삭제할 노드가 Leaf Node(가장 Depth가 큰)일 경우
+        if self.current_node.left == None and self.current_node.right == None :
+            if value < self.parent_node.value :
+                self.parent_node.left = None
+            else :
+                self.parent_node.right = None
+            del self.current_node
+        # 삭제할 노드의 Child Node가 하나일때
+        # left에 존재할 경우
+        if self.current_node.left != None and self.current_node.right == None :
+            # 왼쪽에 존재할 경우 >> current의 왼쪽의 노드와 부모의 노드의 왼쪽과 연결되어야 한다.
+            if value < self.parent_node.value :
+                self.parent_node.left = self.current_node.left
+            else :
+                self.parent_node.right = self.current_node.left
+            del self.current_node
+        # right에 존재할 경우
+        elif self.current_node.left == None and self.current_node.right != None :
+            if value < self.parent_node.value :
+                self.parent_node.left = self.current_node.right
+            else :
+                self.parent_node.right = self.current_node.right
+            del self.current_node
+
+        # 삭제할 노드의 Child Node가 두개일때
+
 
         
 
