@@ -81,7 +81,7 @@ class NodeMgt :
                 self.parent_node.left = None
             else :
                 self.parent_node.right = None
-            del self.current_node
+            
         
         # 삭제할 노드의 Child Node가 하나일때
         # left에 존재할 경우
@@ -91,14 +91,14 @@ class NodeMgt :
                 self.parent_node.left = self.current_node.left
             else :
                 self.parent_node.right = self.current_node.left
-            del self.current_node
+            
         # right에 존재할 경우
         elif self.current_node.left == None and self.current_node.right != None :
             if value < self.parent_node.value :
                 self.parent_node.left = self.current_node.right
             else :
                 self.parent_node.right = self.current_node.right
-            del self.current_node
+            
         
         # 삭제할 노드의 Child Node가 두개일때
         # 삭제할 노드가 parent의 왼쪽에 있을 경우
@@ -148,7 +148,7 @@ class NodeMgt :
                 self.change_node.right = self.current_node.right
             
             # 노드를 삭제한다.
-            del self.current_node
+        del self.current_node
         return True
 
 head = Node(1)
@@ -162,4 +162,26 @@ bst_nums = set()
 while len(bst_nums) != 100 :
     bst_nums.add(random.randint(0,999))
 
-print(bst_nums)
+# print(bst_nums)
+# 선택된 100개의 숫자를 이진 탐색 트리에 입력, 임의로 루트노드는 500으로 넣는다.
+
+head = Node(500)
+
+binary_search_tree = NodeMgt(head)
+
+for num in bst_nums :
+    binary_search_tree.insert(num)
+
+for num in bst_nums :
+    if binary_search_tree.search(num) == False :
+        print('search fail')
+
+# 입력한 100개의 숫자 중 10개 숫자를 랜덤 선택 후 삭제
+delete_nums = set()
+bst_nums = list(bst_nums)
+while len(delete_nums) != 10 : 
+    delete_nums.add(bst_nums[random.randint(0,99)])
+
+for del_num in delete_nums :
+    if binary_search_tree.delete(del_num) == False :
+        print('delete Fail!!')
