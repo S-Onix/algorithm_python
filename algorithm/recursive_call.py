@@ -35,6 +35,6 @@ def function(입력) :
 # 일반적인 재귀형태2
 def function2(입력) :
     if 입력 <= 일정값 :             # 입력이 일정 값보다 작으면
-        return 일정값 또는 입력값    # 재귀 호출 종료
+        return 일정값 or 입력값    # 재귀 호출 종료
     function2(입력값보다 작은 값)
     return 결과값
