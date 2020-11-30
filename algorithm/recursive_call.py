@@ -30,7 +30,7 @@ def function(입력) :
     if 입력 > 일정값 : # 입력이 일정값 이상이면
         return function(입력 - 1) # 입력값보다 작은 값
     else :
-        return 일정값, 입력값 또는 특정값  # 재귀 호출 종료
+        return 일정값, 입력값 or 특정값  # 재귀 호출 종료
 
 # 일반적인 재귀형태2
 def function2(입력) :
