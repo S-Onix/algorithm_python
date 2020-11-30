@@ -10,5 +10,28 @@
 # 문제를 나눌 수 없을 때까지 나누어서 각각을 풀면서 다시 병합하여 문제의 답을 얻는 알고리즘
 # 하향식 접근법으로, 상위의 해답을 구하기 위해, 아래로 내려가면서 하위의 해답을 구하는 방식
 # 일반적으로 재귀함수로 구현한다.
+# 문제를 잘게 쪼개지만 부분 문제는 서로 중복되지 않는다.
+
+# 공통적 : 문제를 잘게 쪼개서, 가장 작은 단위로 분할한다.
+
+# 차이점 : 동적계획법은 부분 문제가 중복될수 있기 때문에 메모이제이션 방식을 사용하고
+#          분할정복은 부분 문제가 중복되지 않아 메모이제이션을 사용하지 않는다.
 
 
+# recursive_call
+def recursive_fibo(data) :
+    if data <= 1 :
+        return data
+    return recursive_fibo(data - 1) + recursive_fibo(data - 2)
+
+# 피보나치 수열 문제 (DP로 풀어보기)
+def dp_fibo(data) :
+    # 입력된 데이터만큼 배열 생성
+    cache = [0 for x in range(data)]
+    cache[0] = 0
+    cache[1] = 1
+
+    for index in range(2, data + 1) :
+        cache[index] = cache[index-1] + cache[index-2]
+    
+    return cache[data]
