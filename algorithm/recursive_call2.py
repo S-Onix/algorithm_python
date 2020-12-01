@@ -105,4 +105,23 @@ def sum_otw(data) :
     else :
         return sum_otw(data - 3) + sum_otw(data - 2) + sum_otw(data - 1)
 
-print(sum_otw(5))
+def dp_sum_otw(data) :
+    if data == 1 :
+        return 1
+    if data == 2 :
+        return 2
+    if data == 3 :
+        return 4
+
+    cache = [0 for index in range(data)]
+    cache[0] = 1
+    cache[1] = 2
+    cache[2] = 4
+    for index in range(3, data) :
+        cache[index] = cache[index - 3] + cache[index - 2] + cache[index - 1]
+
+    return cache[data-1]
+    
+
+print(sum_otw(6))
+print(dp_sum_otw(6))
