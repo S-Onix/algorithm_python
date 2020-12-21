@@ -48,11 +48,39 @@ def dijkstra(graph, start) :
     # 거리 저장 배열에 inf로 초기 세팅
     distances = {node: float('inf') for node in graph}
 
-    print(distances)
+    # 그래프의 시작 정덤의 거리는 0으로 초기화 해줌
     distances[start] = 0
-    print(distances)
-
+    # 모든 정점이 저장될 큐를 생성
     queue = []
+    # 그래프의 시작 정점과 시작 정점의 거리(0)을 최소힙에 넣어줌
     heapq.heappush(queue, [distances[start], start])
 
-dijkstra(mygraph, 'A')
+    while queue :
+
+        # 큐에서 정점을 하나씩 꺼내 인접한 정점들의 가중치를 모두 확인하여 업데이트합니다.
+        current_distance, current_node = heapq.heappop(queue)
+
+        # 더 짧은 경로가 있다면 무시한다.
+        if distances[current_node] < current_distance :
+            continue
+
+        for adjacent, weight in graph[current_node].items() :
+            distance = current_distance + weight
+            # 만약 시작 정점에서 인접 정점으로 바로 가는 것보다 현재 정점을 통해 가는 것이 더 가까울 경우에는
+            if distance < distances[adjacent] :
+                # 거리를 업데이트한다.
+                distances[adjacent] = distance
+                heapq.heappush(queue,[distance, adjacent])
+
+    # path = end
+    # path_output = end + '->'
+    # while distances[path][1] != start :
+    #     path_output += distances[path][1] + '->'
+    #     path = distances[path][1]
+    # path_output += start
+    # print(path_output)
+
+    return distances
+
+
+print(dijkstra(mygraph, 'A'))
