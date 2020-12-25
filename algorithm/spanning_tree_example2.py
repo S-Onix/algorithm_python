@@ -79,7 +79,7 @@ def prim(start_node, edges) :
     candidate_edge_list = adjacent_edges[start_node]
 
     # 최소 힙 큐에 데이터를 일괄 저장한다
-    heapify(candidate_edge_list)
+    heapq.heapify(candidate_edge_list)
 
     # 연결된 간선을 가진 리스트가 빌때까지 계속 반복한다.
     while candidate_edge_list :
@@ -92,7 +92,7 @@ def prim(start_node, edges) :
 
             for edge in adjacent_edges[n2] :
                 if edge[2] not in connected_nodes :
-                    heappush(candidate_edge_list, edge)
+                    heapq.heappush(candidate_edge_list, edge)
 
     return mst
          
