@@ -66,8 +66,58 @@ graph = {
     ]    # 간선
 }
 
+#Union By Rank 기법을 사용하기 위한 자료구조를 설정한다.
+# 각각 노드의 부모노드를 저장함
 parent = dict()
+# 각각 노드의 랭크를 저장하기 위함
 rank = dict()
+
+def make_set2(node) :
+    parent[node] = node
+    rank[node] = 0
+
+def find2(node) :
+    if parent[node] != node :
+        parent[node] = find2(parent[node])
+    return parent[node]
+
+def union2(node_v, node_u) :
+    # 두 노드의 root노드를 찾아온다 (합쳐주기 위해서)
+    root1 = find2(node_v)
+    root2 = find2(node_u)
+
+    if rank[root1] > rank[root2] :
+        parent[root2] = root1
+    else :
+        parent[root1] = root2
+        if rank[root1] == rank[root2] :
+            rank[root2] += 1
+
+
+
+def kru2(graph) :
+    mst = list()
+    # 1. 초기화
+    # Union-Find 를 하기 위해서 각 부분집합을 만들어야한다.
+    for node in graph['vetices'] :
+        make_set2(node)
+    
+    # 2. 간선 weight 기반 sorting
+    #가중치를 정렬해준다.
+    edges = graph['edges']
+    edges.sort()
+
+    # 3. 간선 연결(사이클 없는 것에 대해서)
+    # 가중치가 낮은 것부터 꺼냄
+    for edge in edges :
+        #양끝 노드를 찾아옴
+        weight, node_v, node_u = edge
+        #사이클 여부를 검사하기 위해서 :: 루트가 동일하다면 이어주면 안되고 스킵되어야한다.
+        if find2(node_v) != find2(node_u) :
+            union(node_v, node_u)
+            mst.append(edge)
+
+    return mst
 
 def make_set(node) :
     parent[node] = node
@@ -115,5 +165,56 @@ def kruskal(graph) :
 
     return mst
 
-print(kruskal(graph))
+print(kru2(graph))
 
+
+parent2 = dict()
+rank2 = dict()
+
+
+def find3(node) :
+    if parent2[node] != node :
+        parent2[node] = find3(parent2[node]) 
+    return parent2[node]
+
+def union3(node_v, node_u) :
+    # 두 노드의 루트를 찾고
+    root1 = find3(node_v)
+    root2 = find3(node_u)
+
+    if rank2[root1] > rank2[root2] :
+        # 랭크가 작은 루트 노드의 부모는 랭크가 큰 노드로 변경된다
+        parent2[root2] = root1
+    else :
+        parent2[root1] = root2
+        if rank2[root1] == rank2[root2] :
+            rank2[root2] += 1
+ 
+def kruskal2(graph) :
+    mst = list()
+
+    # 초기화를 해야함 > 원소를 분리하여 parent와 rank를 지정해야함
+    for node in graph['vetices'] :
+        parent2[node] = node
+        rank2[node] = 0
+
+    # 초기화 이후 가중치에 대한 sorting이 필요함
+    edges = graph['edges']
+    edges.sort()
+
+    # 정렬된 가중치순서로 노드를 이어주기 시작한다
+    for edge in edges :
+        weight, node_v, node_u = edge
+
+        # 루트의 일치여부 검사 (일치하면 사이클 / 일치하지 않으면 연결해줘야함)
+        if find3(node_v) != find3(node_u) :
+            # 루트를 찾아 연결해줘야한다. (union by rank 기법사용하기)
+            union3(node_v, node_u)
+            mst.append(edge)
+
+    return mst
+
+
+print(kruskal2(graph))
+
+    

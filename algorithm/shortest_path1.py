@@ -44,6 +44,16 @@ mygraph = {
     'F' : {'A' : 5}
 }
 
+
+mygraph2 = {
+    'A' : {'B' : 2, 'C' : 1, 'D' : 3},
+    'B' : {'F' : 2},
+    'C' : {'B' : 2,'D' : 1,'F' : 5,'E' : 6},
+    'D' : {'E' : 4},
+    'E' : {},
+    'F' : {'E' : 1}
+}
+
 def dijkstra(graph, start) :
     # 거리 저장 배열에 inf로 초기 세팅
     distances = {node: float('inf') for node in graph}
@@ -97,4 +107,37 @@ def dijkstra(graph, start) :
     return distances
 
 
-print(dijkstra(mygraph, 'C'))
+print(dijkstra(mygraph2, 'A'))
+
+
+
+
+
+
+print('333333333333333333333333')
+# 초기화 무엇을 ?? 거리를 나타내는 배열을 초기화한다. / 시작점이 어디인지에 따라 가중치값을 초기화한다.
+def dijack2(graph, start) : 
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    queue = []
+    # 큐에 초기 데이터를 넣어주는데 어떤 큐에 쌓을 것인지 + (가중치+노드) 를 넣어준다
+    heapq.heappush(queue, [distances[start], start])
+
+    while queue :
+        current_distance, current_node = heapq.heappop(queue)
+
+        if current_distance > distances[current_node] :
+            continue
+
+        for adjacent, weight in graph[current_node].items():
+            distance = current_distance + weight
+            if distance < distances[adjacent] :
+                distances[adjacent] = distance
+                heapq.heappush(queue, [distance, adjacent])
+
+            
+            
+    return distances
+
+
+print(dijack2(mygraph2, 'A'))
