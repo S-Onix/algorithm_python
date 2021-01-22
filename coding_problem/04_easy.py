@@ -53,6 +53,7 @@ def solve_2(num) :
         count = 0
         
         while True :
+            # 큐의 가장 앞에 있는 값과 큐 내부의 가장 큰값의 값 비교
             if queue[0][0] == max(queue, key=lambda x: x[0])[0] :
                 count += 1
                 if queue[0][1] == m :
